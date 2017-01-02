@@ -2,7 +2,7 @@
 
 #999=Missing
 
-codes = 
+codeString = 
 'Question 1-Age?
 As is
 
@@ -197,13 +197,23 @@ I don’t know=3
 Maybe=4
 Definitely yes=5
 '
-codes = strsplit(codes, split="Question ")[[1]]
+survey$Age. = as.numeric(survey$Age.)
+codes = strsplit(codeString, split="Question ")[[1]]
 length(codes)
 codes = codes[-(1:2)]
-codenums = sapply(strsplit(codes, split="-"), '[', 1)
-codenums = as.numeric(codenums)
+codeNums = sapply(strsplit(codes, split="-"), '[', 1)
+columnNums = as.numeric(codeNums) + 1
 qnames = sapply(strsplit(codes, split="-"), '[', -1)
 qnames[which(sapply(qnames, length) == 2)]
-for(num in codenums) {
-  
+surv_recoded = survey
+for(num in codeNums) {
+  column = surv_recoded[[num]]
+  qnameSplit = strsplit(qnames[num], split = '\n')[[1]]
+  qname = qnameSplit[1]
+  qcodes = qnameSplit[-1]
+  qcodes = qcodes[qcodes!=""]
+  splitCodes = strsplit(qcodes, split='=')
+  for(nvalue in 1:length(splitCodes))
+    column[splitCodes[[nvalue]][2]] == 
+    splitCodes[[nvalue]][1]
 }
