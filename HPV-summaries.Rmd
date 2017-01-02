@@ -1,0 +1,26 @@
+---
+title: "HPV-summaries"
+author: "roger"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("survey.dmp")
+```
+
+Sample size = `r nrow(survey)`.
+```{r}
+for(n in names(survey)) {
+  cat("\n####### ", which(n==names(survey)),
+      ": ", n, "#########\n")
+  tab = table(survey[[n]], exclude = NULL)
+  if(length(tab) < 10)
+    print(tab)
+  else
+    print(summary(survey[[n]]))
+}
+```
+
+```{r}
