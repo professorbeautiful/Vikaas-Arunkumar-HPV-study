@@ -1,5 +1,9 @@
 library(xlsx)
 survey = read.xlsx(file = "SURVEY TABLE.xlsx", sheetIndex = 1, stringsAsFactors=FALSE)
+#survey = read.csv(file = "SURVEY TABLE.csv", stringsAsFactors=FALSE)
+### I was getting "invalid multibyte string errors.
+### Solved; I used excel search/replace to replace the funky "space" and the non-ascii single-quote.
+
 survey = survey[ , -(1:8)]
 survey = survey[ -1, ]
 names(survey)
